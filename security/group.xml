@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record model="ir.module.category" id="twin_shopee_group">
+    <record model="ir.module.category" id="shopee_group">
         <field name="name">Shopee</field>
         <field name="description">Access Right Shopee Integration</field>
     </record>
@@ -8,7 +8,7 @@
     <!-- Aflowz School Groups -->
     <record id="group_shopee_admin_user" model="res.groups">
         <field name="name">Admin</field>
-        <field name="category_id" ref="twin_shopee_group"/>
+        <field name="category_id" ref="shopee_group"/>
         <field name="comment">The user will have access to Twin x Shopee integration.</field>
     </record>
 </odoo>
