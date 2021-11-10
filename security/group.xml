@@ -9,6 +9,6 @@
     <record id="group_shopee_admin_user" model="res.groups">
         <field name="name">Admin</field>
         <field name="category_id" ref="shopee_group"/>
-        <field name="comment">The user will have access to Twin x Shopee integration.</field>
+        <field name="comment">The user will have access to Shopee integration.</field>
     </record>
 </odoo>
