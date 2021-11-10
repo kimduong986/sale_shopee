@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="ir_cron_shopee_account_refresh_token" model="ir.cron">
+            <field name="name">Refresh Token Shopee Account</field>
+            <field name="interval_number">2</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="model_merchant_shopee"/>
+            <field name="code">model._cron_accounts_generate_refresh_access_token()</field>
+            <field name="state">code</field>
+        </record>
+
+        <record id="ir_cron_shopee_order" model="ir.cron">
+            <field name="name">Sync Order Shopee Account</field>
+            <field name="interval_number">15</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="model_merchant_shopee"/>
+            <field name="code">model._cron_shopee_sync_order()</field>
+            <field name="state">code</field>
+        </record>
+    </data>
+</odoo>

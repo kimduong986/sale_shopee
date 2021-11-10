@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="ShopeeButtonMenu">
+        <li class="o_mail_systray_item">
+            <a class="dropdown-toggle o-no-caret" role="button" title="Shopee Orders" style="cursor: pointer; !important">
+                <img src="https://cdn-images-1.medium.com/max/1200/1*bc-9JmEtRiKTwVqHRTGqbQ.png" style="width: 30px; height: 32px; margin-bottom: 5px;"/>
+            </a>                        
+        </li>
+    </t>
+</templates>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Tree view for the menuitem -->
+        <record id="merchant_shopee_tree" model="ir.ui.view">
+            <field name="name">merchant.shopee.tree</field>
+            <field name="model">merchant.shopee</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form view for the menuitem -->
+        <record id="merchant_shopee_form" model="ir.ui.view">
+            <field name="name">merchant.shopee.form</field>
+            <field name="model">merchant.shopee</field>
+            <field name="arch" type="xml">
+                <form string="Shopee Sync">
+                    <header>
+                        <button type="object" class="btn-primary" name="get_access_token" string="Access Token"/>
+                        <button type="object" class="btn-primary" name="refresh_token_shop" string="Refresh Token"/>
+                        <button type="object" class="btn-primary" name="button_sync_all_order" string="Get Orders"/>
+                        <button type="object" class="btn-primary" name="get_shop_list" string="Get Shops"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="name" string="APP Name"/>
+                            <h1><field name="name" required="1" placeholder="APP Name"/></h1>
+                        </div>
+                        <group>
+                            <group string="Credential Data">
+                                <field name="partner_id" string="Partner ID"/>
+                                <field name="partner_key" password="1"/>
+                            </group>
+                            <group string="URL Data">
+                                <field name="host"/>
+                                <field name="redirect_url" widget="url" string="Redirect URL"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Orders Sync Time Interval">
+                                <field name="order_interval" widget="radio"/>
+                                <field name="order_from_date" attrs="{'invisible': [('order_interval', '!=', 0)], 'required': [('order_interval', '=', 0)]}"/>
+                                <field name="order_to_date" attrs="{'invisible': [('order_interval', '!=', 0)], 'required': [('order_interval', '=', 0)]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Shop ID List">
+                                <field name="shop_shopee_ids">
+                                    <tree editable="bottom">
+                                        <field name="shop_id" string="Shop ID" readonly="1"/>
+                                        <field name="name" readonly="1"/>
+                                        <field name="country" readonly="1"/>
+                                        <field name="auth_time" readonly="1" invisible="1"/>
+                                        <field name="expire_time" readonly="1" invisible="1"/>
+                                        <field name="date_auth" readonly="1"/>
+                                        <field name="date_expired" readonly="1"/>
+                                        <field name="status" readonly="1"/>
+                                        <field name="auth_url" readonly="1" widget="url" invisible="1"/>
+                                        <button style="line-height: 0.75 !important;" attrs="{'invisible': [('code', '!=', False)]}" name="get_auth_shop_code" type="object" class="btn btn-primary" string="Get Auth Token"/>
+                                        <field name="code" readonly="0"/>
+                                        <field name="access_token" readonly="1"/>
+                                        <field name="refresh_token" readonly="1"/>
+                                        <field name="token_expired" readonly="1"/>
+                                        <field name="affi_shop_ids" widget="many2many_tags" readonly="1"/>
+                                        <button style="line-height: 0.75 !important;" attrs="{'invisible': [('access_token', '!=', False)]}" name="button_shop_details" type="object" class="btn btn-primary" string="Shop Details"/>
+                                        <button style="line-height: 0.75 !important;" attrs="{'invisible': [('access_token', '=', False)]}" name="button_refresh_token" type="object" class="btn btn-primary" string="Refresh Token"/>
+                                        <button style="line-height: 0.75 !important;" name="button_sync_order" type="object" class="btn btn-primary" string="Sync Order"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="merchant_shopee_action">
+            <field name="name">Shopee Accounts</field>
+            <field name="res_model">merchant.shopee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="shop_shopee_action">
+            <field name="name">Shopee Shops</field>
+            <field name="res_model">merchant.shopee.shop</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="shop_affi_shopee_action">
+            <field name="name">Shopee Shops Affiliation</field>
+            <field name="res_model">merchant.shopee.shop.affi</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="merchant_shopee_menu" name="Shopee" sequence="210" groups="sale_shopee.group_shopee_admin_user" web_icon="sale_shopee,static/src/img/shopee_favicon.png"/>
+        
+        <menuitem id="sub_merchant_shopee_menu" parent="merchant_shopee_menu" name="Accounts" sequence="10" action="merchant_shopee_action"/>
+        <menuitem id="sub_shop_shopee_menu" parent="merchant_shopee_menu" name="Shops" sequence="20" action="shop_shopee_action"/>
+        <menuitem id="sub_shop_shopee_affi_menu" parent="merchant_shopee_menu" name="Shops Affis" sequence="30" action="shop_affi_shopee_action"/>
+    </data>
+</odoo>

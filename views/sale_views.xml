@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sale_order_list_quotation_shopee_inherit">
+            <field name="name">sale.order.shopee.quotation.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="shopee_order"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sale_order_list_order_shopee_inherit">
+            <field name="name">sale.order.shopee.order.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="shopee_order"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sale_order_shopee_inherit">
+            <field name="name">sale.order.shopee.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button 
+                        name="action_shopee_request_pickup" 
+                        confirm="Are you sure want to pickup request this order to Shopee?" 
+                        attrs="{'invisible': ['|', ('sp_order_sn', '=', False), ('sp_order_status', '!=', 'READY_TO_SHIP')]}" 
+                        string="Shopee Request Pickup" 
+                        class="btn-primary" 
+                        type="object"
+                    />
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Shopee" name="shopee">
+                        <group string="General Order Information">
+                            <group>
+                                <field name="sp_id" string="Odoo Shopee" options="{'no_create_edit': True, 'no_quick_create': True}" invisible="1"/>
+                                <field name="sp_order_sn" string="Order SN"/>
+                                <field name="sp_order_status" string="Order Status"/>
+                                <field name="sp_shop_id" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="sp_note" string="Note"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Cancellation">
+                                <field name="sp_cancel_by"/>
+                                <field name="sp_cancel_reason"/>
+                                <field name="sp_buyer_cancel_reason"/>
+                            </group>
+                            <group string="Buyer Information" invisible="1">
+                                <field name="sp_buyer_user_id" string="Buyer ID"/>
+                                <field name="sp_buyer_username" string="Buyer Username"/>
+                                <field name="sp_buyer_name" string="Buyer Name"/>
+                                <field name="sp_buyer_phone" string="Buyer Phone"/>
+                                <field name="sp_buyer_fulladdress" string="Buyer Full Address"/>
+                            </group>
+                        </group>
+                        <group string="Logistic/Shippment">
+                            <field name="sp_shipping_document_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="sale_id" invisible="1"/>
+                                    <field name="sp_package_number" invisible="1"/>
+                                    <field name="sp_tracking_number" invisible="1"/>
+                                    <field name="sp_shipping_carrier" string="Carrier"/>
+                                    <field name="sp_logistic_status" string="Status"/>
+                                    <field name="sp_item_list_ids" widget="many2many_tags" string="Items" invisible="1"/>
+                                    <field name="sp_shipping_document_type" string="Type"/>
+                                    <field name="sp_selectable_shipping_document_type_ids" invisible="1" string="Types" widget="many2many_tags"/>
+                                    <field name="sp_created_document" string="Created?" invisible="1"/>
+                                    <field name="sp_shipping_document" string="File"/>
+                                    <field name="sp_fail_error" invisible="1"/>
+                                    <field name="sp_fail_message" invisible="1"/>
+                                    <button style="line-height: 0.75 !important;" name="download_shipping_doc" type="object" class="btn btn-primary" string="Get Shipping Doc"/>
+                                    <button
+                                        style="line-height: 0.75 !important; border-radius: 8px !important; padding: 0.1rem 0.3rem !important; background-color: #cecefb !important"
+                                        name="show_shopee_shipping_label"
+                                        type="object"
+                                        class="o_address_state oe_stat_button"
+                                        attrs="{'invisible': [('sp_shipping_document', '=', False)]}"
+                                        icon="fa-eye">
+                                    </button>
+                                </tree>
+                            </field>
+                        </group>
+                        <group string="Invoice &amp; Payment Information">
+                            <field name="sp_invoice_number" string="Invoice Number"/>
+                            <field name="sp_pay_time" string="Payment Time"/>
+                            <field name="sp_payment_method" string="Payment Method"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="Sale Shopee Backend Assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="application/javascript" src="/sale_shopee/static/src/js/systray_shopeebutton.js"/>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_merchant_shopee,access_merchant_shopee,model_merchant_shopee,,1,1,1,1
+access_shop_shopee,access_shop_shopee,model_merchant_shopee_shop,,1,1,1,1
+access_shopee_shop_affi,access_shopee_shop_affi,model_merchant_shopee_shop_affi,,1,1,1,1
+access_shopee_shipping_document,access_shopee_shipping_document,model_shopee_shipping_document,,1,1,1,1
+access_selectable_shipping_document,access_selectable_shipping_document,model_selectable_shipping_document,,1,1,1,1
+access_shopee_shipping_item,access_shopee_shipping_item,model_shopee_shipping_item,,1,1,1,1
